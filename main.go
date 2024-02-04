@@ -9,7 +9,11 @@ import (
 	"net/http"
 )
 
-const keyServerAddr = "serverAddr"
+type key int
+
+const (
+	keyServerAddr key = iota
+)
 
 func getRoot(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
