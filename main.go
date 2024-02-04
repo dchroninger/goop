@@ -26,13 +26,15 @@ func GetHello(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", getRoot)
-	http.HandleFunc("/hello", GetHello)
+	mux := http.NewServeMux()
+
+	mux.HandleFunc("/", getRoot)
+	mux.HandleFunc("/hello", GetHello)
 
 	ctx, cancel := context.WithCancel(context.Background())
 	publicServer := &http.Server{
 		Addr:    ":3333",
-		Handler: http.DefaultServeMux,
+		Handler: mux,
 		BaseContext: func(l net.Listener) context.Context {
 			ctx = context.WithValue(ctx, keyServerAddr, l.Addr().String())
 			return ctx
@@ -41,7 +43,7 @@ func main() {
 
 	adminServer := &http.Server{
 		Addr:    ":4444",
-		Handler: http.DefaultServeMux,
+		Handler: mux,
 		BaseContext: func(l net.Listener) context.Context {
 			ctx = context.WithValue(ctx, keyServerAddr, l.Addr().String())
 			return ctx
@@ -57,6 +59,7 @@ func main() {
 		}
 		cancel()
 	}()
+
 	go func() {
 		err := adminServer.ListenAndServe()
 		if errors.Is(err, http.ErrServerClosed) {
