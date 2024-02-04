@@ -1,3 +1,4 @@
 *.env
 app
 tmp/*
+node_modules
