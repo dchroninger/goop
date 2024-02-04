@@ -1,3 +1,4 @@
 *.env
+css/output.css
 app
 node_modules
