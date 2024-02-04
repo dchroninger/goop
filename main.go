@@ -69,4 +69,6 @@ func main() {
 		}
 		cancel()
 	}()
+
+	<-ctx.Done()
 }
