@@ -21,6 +21,11 @@ test:
 build: test
 	go build -o ./app -v
 
+## start-watch: build and run local project
+.PHONY: start-watch
+start-watch: build
+	air -- -hotreload
+
 ## start: build and run local project
 .PHONY: start
 start: build

@@ -5,11 +5,21 @@ import (
 	"net/http"
 )
 
-func css(w http.ResponseWriter, r *http.Request) {
+func serveHotReload(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "./hotreload.js")
+}
+
+func serveCss(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "css/output.css")
 }
 
-func index(w http.ResponseWriter, _ *http.Request) {
+type IndexData struct {
+	HotReload bool
+}
+
+func index(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	hotReload, _ := ctx.Value(keyHotReload).(bool)
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
-	tmpl.Execute(w, nil)
+	tmpl.Execute(w, IndexData{HotReload: hotReload})
 }

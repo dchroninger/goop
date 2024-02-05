@@ -10,9 +10,15 @@
   </head>
   <body>
     <main>
-      <div class="md:container md:mx-auto">
-        <p class="text-blue-400">Hello from Goop templates directory</p>
-      </div>
+      <nav>
+        <div class="flex h-16 w-screen bg-blue-100">
+          <a href="#"><span>Goop</span></a>
+        </div>
+      </nav>
     </main>
   </body>
+
+  {{ if .HotReload}}
+  <script src="http://localhost:3333/_hotreload"></script>
+  {{ end }}
 </html>

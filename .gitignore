@@ -1,4 +1,5 @@
 *.env
 css/output.css
 app
+tmp
 node_modules
