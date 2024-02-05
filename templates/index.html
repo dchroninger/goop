@@ -19,6 +19,6 @@
   </body>
 
   {{ if .HotReload}}
-  <script src="http://localhost:3333/_hotreload"></script>
+  <script src="http://localhost:{{.Port}}/_hotreload"></script>
   {{ end }}
 </html>

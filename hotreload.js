@@ -8,5 +8,5 @@ socket.onclose = function () {
   //TODO: Find a better way to do this
   setTimeout(() => {
     window.location.reload();
-  }, 500);
+  }, 800);
 };

@@ -24,7 +24,7 @@ build: test
 ## start-watch: build and run local project
 .PHONY: start-watch
 start-watch: build
-	air -- -hotreload
+	air -- -watch -port=8080
 
 ## start: build and run local project
 .PHONY: start

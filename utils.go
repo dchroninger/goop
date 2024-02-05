@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net"
 	"net/http"
-	"os"
 )
 
 func listenAndServe(name string, s *http.Server, c context.CancelFunc) {
@@ -19,17 +18,9 @@ func listenAndServe(name string, s *http.Server, c context.CancelFunc) {
 	c()
 }
 
-func getEnvWithDefault(key, defaultValue string) string {
-	value := os.Getenv(key)
-	if value == "" {
-		return defaultValue
-	}
-	return value
-}
-
-func buildHttpServer(port string, mux *http.ServeMux, ctxKey key, ctx context.Context) *http.Server {
+func buildHttpServer(port int, mux *http.ServeMux, ctxKey key, ctx context.Context) *http.Server {
 	return &http.Server{
-		Addr:    ":" + port,
+		Addr:    fmt.Sprintf(":%d", port),
 		Handler: mux,
 		BaseContext: func(l net.Listener) context.Context {
 			return context.WithValue(ctx, ctxKey, l.Addr().String())
